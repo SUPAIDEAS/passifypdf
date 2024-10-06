@@ -51,6 +51,9 @@ $
 ## Before & After:
 <img width="1534" alt="Pasted Graphic 100" src="https://github.com/user-attachments/assets/ee2ead62-6480-4312-af8b-762ec240cc10">
 
+## Known Issues
+If you have nay special chars(example: an emoji like Star 🌟) in the PDF file, it gives a minor complain during execution. 
+But it still does the job, so you can ingore that "char or object error" which you see in the output.
 
 ## Note:
 In general you can use passifypdf to protect your PDF files against an opportunistic attacker. 
