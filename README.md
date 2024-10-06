@@ -27,8 +27,13 @@ if __name__ == "__main__":
     ...
 ```
 
-Run from CLI:
+## Run from CLI:
 
+```
+python encryptpdf.py
+```
+
+Sample Run:
 ```
 change dir to "passifypdf/passifypdf", 
 
@@ -39,10 +44,12 @@ python encryptpdf.py
 $python encryptpdf.py
 Congratulations!
 PDF file encrypted successfully and saved as 'Sample_PDF_protected.pdf'
-
 $
-
 ```
+
+## Before & After:
+<img width="1534" alt="Pasted Graphic 100" src="https://github.com/user-attachments/assets/ee2ead62-6480-4312-af8b-762ec240cc10">
+
 
 ## Disclaimer
 In general you can use passifypdf to protect your PDF files against an opportunistic attacker. 
