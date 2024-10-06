@@ -1,5 +1,6 @@
-# About passifypdf
-Use passifypdf to protect your PDF files with a password of your choice. Same as encrypt your PDF.
+# passifypdf
+Use passifypdf to protect your PDF files with a password of your choice. 
+Same as encrypt or lock your PDF via a password.
 
 # How to use ?
 
@@ -27,7 +28,7 @@ if __name__ == "__main__":
     ...
 ```
 
-## Run from CLI:
+## Usage via CLI:
 
 ```
 python encryptpdf.py
@@ -51,6 +52,6 @@ $
 <img width="1534" alt="Pasted Graphic 100" src="https://github.com/user-attachments/assets/ee2ead62-6480-4312-af8b-762ec240cc10">
 
 
-## Disclaimer
+## Note:
 In general you can use passifypdf to protect your PDF files against an opportunistic attacker. 
-But do not rely on `passifypdf` or generated password-protected PDF file(s) for mission-critical information.
+But you should not rely on this for mission-critical data.
