@@ -56,5 +56,5 @@ If you have nay special chars(example: an emoji like Star 🌟) in the PDF file,
 But it still does the job, so you can ingore that "char or object error" which you see in the output.
 
 ## Note:
-In general you can use passifypdf to protect your PDF files against an opportunistic attacker. 
-But you should not rely on this for mission-critical data.
+In general you can use passifypdf to protect your PDF files against chance attackers. 
+But you should not rely on this for mission-critical data or situation.
