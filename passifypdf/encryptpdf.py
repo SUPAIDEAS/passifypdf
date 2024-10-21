@@ -1,4 +1,4 @@
-from cli import get_parser
+from cli import get_arg_parser
 from pypdf import PdfReader, PdfWriter
 
 
@@ -23,8 +23,8 @@ def pipeline(any_thing):
 
 
 def main():
-    parser = get_parser()
-    args = parser.parse_args()
+    arg_parser = get_arg_parser()
+    args = arg_parser.parse_args()
     encrypt_pdf(args.input, args.output, args.passwd)
     print(f"Congratulations!\nPDF file encrypted successfully and saved as '{args.output}'")
 
