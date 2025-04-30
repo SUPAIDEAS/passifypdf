@@ -2,6 +2,9 @@
 Use passifypdf to protect your PDF files with a password of your choice. 
 Same as encrypt or lock your PDF via a password.
 
+## Before & After:
+<img width="1534" alt="Pasted Graphic 100" src="https://github.com/user-attachments/assets/ee2ead62-6480-4312-af8b-762ec240cc10">
+
 # How to use ?
 
 ## Clone
@@ -47,9 +50,6 @@ Congratulations!
 PDF file encrypted successfully and saved as 'Sample_PDF_protected.pdf'
 $
 ```
-
-## Before & After:
-<img width="1534" alt="Pasted Graphic 100" src="https://github.com/user-attachments/assets/ee2ead62-6480-4312-af8b-762ec240cc10">
 
 ## Known Issues
 If you have nay special chars(example: an emoji like Star 🌟) in the PDF file, it gives a minor complain during execution. 
