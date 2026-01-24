@@ -33,6 +33,8 @@ if __name__ == "__main__":
 
 ## Usage via CLI:
 
+See [CLI Options](docs/CLI_OPTIONS.md) for full documentation.
+
 ```
 python encryptpdf.py
 ```

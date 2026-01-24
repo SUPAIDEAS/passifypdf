@@ -12,5 +12,10 @@ setup(
     packages=find_packages(exclude=('tests')),
     install_requires=[
         'pypdf==4.3.1'
-    ]
+    ],
+    entry_points={
+        'console_scripts': [
+            'passifypdf=passifypdf.encryptpdf:main',
+        ],
+    }
 )
