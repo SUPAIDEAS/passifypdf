@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "passifypdf"
+version = "1.0.0"
+description = "Protect PDF by a password of your choice"
+authors = ["Nirmal Chandra <nirmal.fleet@gmail.com>"]
+readme = "README.md"
+packages = [{include = "passifypdf"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pypdf = "4.3.1"
+
+[tool.poetry.group.dev.dependencies]
+coverage = "^7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+passifypdf = "passifypdf.encryptpdf:main"
