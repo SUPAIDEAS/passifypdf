@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from encryptpdf import pipeline
+from passifypdf.encryptpdf import pipeline
 
 
 class TestPdfExample(TestCase):
