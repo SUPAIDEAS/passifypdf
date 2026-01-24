@@ -1,4 +1,4 @@
-from cli import get_arg_parser
+from .cli import get_arg_parser
 from pypdf import PdfReader, PdfWriter
 
 
