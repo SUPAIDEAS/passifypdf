@@ -13,5 +13,9 @@ The `passifypdf` tool accepts the following command-line arguments:
 ## Example Usage
 
 ```bash
-python3 passifypdf/encryptpdf.py -i input.pdf -o protected.pdf -p mySecretPassword
+# Using the installed CLI command
+passifypdf -i input.pdf -o protected.pdf -p mySecretPassword
+```
+
+**Security Note:** Avoid passing sensitive passwords directly on the command line if possible, as they may be exposed in process listings.
 ```
