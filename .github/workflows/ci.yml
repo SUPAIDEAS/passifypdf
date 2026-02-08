@@ -25,11 +25,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install poetry
         poetry install
-    - name: Debug Environment
-      run: |
-        poetry env info
-        poetry show
-        poetry run pip list
     - name: Test with unittest
       run: |
         poetry run coverage run -m unittest discover tests
