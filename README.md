@@ -51,3 +51,6 @@ But it still does the job, so you can ingore that "char or object error" which y
 ## Note:
 In general you can use passifypdf to protect your PDF files against chance attackers. 
 But you should not rely on this for mission-critical data or situation.
+
+## Build & Run Locally
+Visit [BUILD.md](BUILD.md)
