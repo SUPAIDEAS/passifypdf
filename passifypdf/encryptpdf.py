@@ -1,11 +1,13 @@
-from .cli import get_arg_parser
-from pypdf import PdfReader, PdfWriter
-
+"""Core PDF encryption module."""
 
 import sys
-import os
 from pathlib import Path
 from typing import Union
+
+from pypdf import PdfReader, PdfWriter
+
+from .cli import get_arg_parser
+
 
 def encrypt_pdf(input_pdf: Union[str, Path], output_pdf: Union[str, Path], password: str) -> None:
     """
@@ -18,14 +20,15 @@ def encrypt_pdf(input_pdf: Union[str, Path], output_pdf: Union[str, Path], passw
 
     Raises:
         FileNotFoundError: If the input PDF file does not exist.
+        IsADirectoryError: If the input path is a directory.
         Exception: For other errors during processing.
     """
     input_path = Path(input_pdf)
     if not input_path.exists():
         raise FileNotFoundError(f"Input file '{input_pdf}' not found.")
-    
+
     if not input_path.is_file():
-         raise IsADirectoryError(f"Input path '{input_pdf}' is not a file.")
+        raise IsADirectoryError(f"Input path '{input_pdf}' is not a file.")
 
     try:
         reader = PdfReader(input_path)
@@ -49,13 +52,13 @@ def encrypt_pdf(input_pdf: Union[str, Path], output_pdf: Union[str, Path], passw
 def main() -> int:
     """
     Main function to run the CLI.
-    
+
     Returns:
         int: Exit code (0 for success, 1 for failure).
     """
     arg_parser = get_arg_parser()
     args = arg_parser.parse_args()
-    
+
     try:
         encrypt_pdf(args.input, args.output, args.passwd)
         print(f"Congratulations!\nPDF file encrypted successfully and saved as '{args.output}'")

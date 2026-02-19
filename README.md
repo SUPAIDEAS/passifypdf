@@ -36,17 +36,12 @@ passifypdf --help
 
 
 Sample Run:
-```
-change dir to "passifypdf/passifypdf", 
+```bash
+passifypdf -i input.pdf -o protected.pdf -p mySecretPassword
 
-Then run, 
-python encryptpdf.py
-
--------------------------Sample output----------------------
-$python encryptpdf.py
-Congratulations!
-PDF file encrypted successfully and saved as 'Sample_PDF_protected.pdf'
-$
+# -------------------------Sample output----------------------
+# Congratulations!
+# PDF file encrypted successfully and saved as 'protected.pdf'
 ```
 
 ## Known Issues
