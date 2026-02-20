@@ -60,6 +60,13 @@ def main() -> int:
     args = arg_parser.parse_args()
 
     try:
+        output_path = Path(args.output)
+        if output_path.exists() and not getattr(args, 'force', False):
+            response = input(f"File '{args.output}' already exists. Overwrite? [y/N]: ")
+            if response.lower() not in ('y', 'yes'):
+                print("Operation cancelled.")
+                return 0
+
         encrypt_pdf(args.input, args.output, args.passwd)
         print(f"Congratulations!\nPDF file encrypted successfully and saved as '{args.output}'")
         return 0

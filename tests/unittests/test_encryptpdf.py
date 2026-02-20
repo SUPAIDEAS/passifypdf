@@ -141,3 +141,67 @@ class TestEncryptPdf(TestCase):
         
         with self.assertRaises(IsADirectoryError):
             encrypt_pdf("directory", "output.pdf", "secret")
+
+    @patch('passifypdf.encryptpdf.get_arg_parser')
+    @patch('passifypdf.encryptpdf.encrypt_pdf')
+    @patch('passifypdf.encryptpdf.Path')
+    @patch('builtins.print')
+    def test_main_with_force_flag(self, mock_print, mock_path_cls, mock_encrypt_pdf, mock_arg_parser):
+        """Test main() with --force flag when output file exists."""
+        mock_parser_instance = mock_arg_parser.return_value
+        mock_args = type('Args', (), {'input': 'in.pdf', 'output': 'out.pdf', 'passwd': 'pass', 'force': True})()
+        mock_parser_instance.parse_args.return_value = mock_args
+
+        mock_path_instance = mock_path_cls.return_value
+        mock_path_instance.exists.return_value = True
+
+        from passifypdf.encryptpdf import main
+        result = main()
+
+        self.assertEqual(result, 0)
+        mock_encrypt_pdf.assert_called_with('in.pdf', 'out.pdf', 'pass')
+
+    @patch('passifypdf.encryptpdf.get_arg_parser')
+    @patch('passifypdf.encryptpdf.encrypt_pdf')
+    @patch('passifypdf.encryptpdf.Path')
+    @patch('builtins.print')
+    @patch('builtins.input')
+    def test_main_without_force_flag_user_says_yes(self, mock_input, mock_print, mock_path_cls, mock_encrypt_pdf, mock_arg_parser):
+        """Test main() without --force flag, user agrees to overwrite."""
+        mock_parser_instance = mock_arg_parser.return_value
+        mock_args = type('Args', (), {'input': 'in.pdf', 'output': 'out.pdf', 'passwd': 'pass', 'force': False})()
+        mock_parser_instance.parse_args.return_value = mock_args
+
+        mock_path_instance = mock_path_cls.return_value
+        mock_path_instance.exists.return_value = True
+
+        mock_input.return_value = 'y'
+
+        from passifypdf.encryptpdf import main
+        result = main()
+
+        self.assertEqual(result, 0)
+        mock_encrypt_pdf.assert_called_with('in.pdf', 'out.pdf', 'pass')
+
+    @patch('passifypdf.encryptpdf.get_arg_parser')
+    @patch('passifypdf.encryptpdf.encrypt_pdf')
+    @patch('passifypdf.encryptpdf.Path')
+    @patch('builtins.print')
+    @patch('builtins.input')
+    def test_main_without_force_flag_user_says_no(self, mock_input, mock_print, mock_path_cls, mock_encrypt_pdf, mock_arg_parser):
+        """Test main() without --force flag, user refuses to overwrite."""
+        mock_parser_instance = mock_arg_parser.return_value
+        mock_args = type('Args', (), {'input': 'in.pdf', 'output': 'out.pdf', 'passwd': 'pass', 'force': False})()
+        mock_parser_instance.parse_args.return_value = mock_args
+
+        mock_path_instance = mock_path_cls.return_value
+        mock_path_instance.exists.return_value = True
+
+        mock_input.return_value = 'n'
+
+        from passifypdf.encryptpdf import main
+        result = main()
+
+        self.assertEqual(result, 0)
+        mock_encrypt_pdf.assert_not_called()
+        mock_print.assert_called_with("Operation cancelled.")
