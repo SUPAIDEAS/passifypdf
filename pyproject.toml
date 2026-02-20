@@ -1,21 +1,26 @@
-[tool.poetry]
+[project]
 name = "passifypdf"
 version = "1.0.0"
 description = "Protect PDF by a password of your choice"
-authors = ["Nirmal Chandra <nirmal.fleet@gmail.com>"]
+authors = [
+    {name = "Nirmal Chandra", email = "nirmal.fleet@gmail.com"}
+]
 readme = "README.md"
-packages = [{include = "passifypdf"}]
+requires-python = ">=3.8"
+dependencies = [
+    "pypdf>=4.3.1",
+]
 
-[tool.poetry.dependencies]
-python = "^3.8"
-pypdf = "^4.3.1"
+[project.optional-dependencies]
+dev = [
+    "coverage>=7.0",
+    "pytest",
+    "pytest-cov",
+]
 
-[tool.poetry.group.dev.dependencies]
-coverage = "^7.0"
+[project.scripts]
+passifypdf = "passifypdf.encryptpdf:main"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.scripts]
-passifypdf = "passifypdf.encryptpdf:main"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
