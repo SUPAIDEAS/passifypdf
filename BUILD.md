@@ -7,7 +7,7 @@ pip install uv <--- Not required if you have already installed.
 uv sync
 
 Next >>>
-> switch to virtual env 
+>>> switch to virtual env <<< 
 source .venv/bin/activate
 ```
 
