@@ -61,7 +61,7 @@ def main() -> int:
 
     try:
         output_path = Path(args.output)
-        if output_path.exists() and not getattr(args, 'force', False):
+        if output_path.exists() and not args.force:
             response = input(f"File '{args.output}' already exists. Overwrite? [y/N]: ")
             if response.lower() not in ('y', 'yes'):
                 print("Operation cancelled.")

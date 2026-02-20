@@ -2,6 +2,7 @@ from unittest import TestCase
 from unittest.mock import patch, mock_open
 from passifypdf.encryptpdf import encrypt_pdf
 import os
+import shutil
 import tempfile
 from pypdf import PdfReader
 
@@ -25,7 +26,7 @@ class TestEncryptPdf(TestCase):
         if os.path.exists(self.output_pdf):
             os.remove(self.output_pdf)
         if os.path.exists(self.temp_dir):
-            os.rmdir(self.temp_dir)
+            shutil.rmtree(self.temp_dir)
 
     def test_encrypt_pdf_creates_output_file(self):
         """Test that encrypt_pdf creates an output file."""
@@ -160,6 +161,7 @@ class TestEncryptPdf(TestCase):
 
         self.assertEqual(result, 0)
         mock_encrypt_pdf.assert_called_with('in.pdf', 'out.pdf', 'pass')
+        mock_path_cls.assert_called_with('out.pdf')
 
     @patch('passifypdf.encryptpdf.get_arg_parser')
     @patch('passifypdf.encryptpdf.encrypt_pdf')
@@ -182,6 +184,7 @@ class TestEncryptPdf(TestCase):
 
         self.assertEqual(result, 0)
         mock_encrypt_pdf.assert_called_with('in.pdf', 'out.pdf', 'pass')
+        mock_path_cls.assert_called_with('out.pdf')
 
     @patch('passifypdf.encryptpdf.get_arg_parser')
     @patch('passifypdf.encryptpdf.encrypt_pdf')
@@ -205,3 +208,26 @@ class TestEncryptPdf(TestCase):
         self.assertEqual(result, 0)
         mock_encrypt_pdf.assert_not_called()
         mock_print.assert_called_with("Operation cancelled.")
+        mock_path_cls.assert_called_with('out.pdf')
+
+    @patch('passifypdf.encryptpdf.get_arg_parser')
+    @patch('passifypdf.encryptpdf.encrypt_pdf')
+    @patch('passifypdf.encryptpdf.Path')
+    @patch('builtins.print')
+    @patch('builtins.input')
+    def test_main_without_force_flag_file_not_exists(self, mock_input, mock_print, mock_path_cls, mock_encrypt_pdf, mock_arg_parser):
+        """Test main() without --force flag when output file does not exist."""
+        mock_parser_instance = mock_arg_parser.return_value
+        mock_args = type('Args', (), {'input': 'in.pdf', 'output': 'out.pdf', 'passwd': 'pass', 'force': False})()
+        mock_parser_instance.parse_args.return_value = mock_args
+
+        mock_path_instance = mock_path_cls.return_value
+        mock_path_instance.exists.return_value = False
+
+        from passifypdf.encryptpdf import main
+        result = main()
+
+        self.assertEqual(result, 0)
+        mock_encrypt_pdf.assert_called_with('in.pdf', 'out.pdf', 'pass')
+        mock_path_cls.assert_called_with('out.pdf')
+        mock_input.assert_not_called()
