@@ -161,3 +161,11 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 .DS_Store
+
+# Add these lines if not already present
+uv.lock
+.venv/
+*.pyc
+
+# Poetry files are no longer needed
+# poetry.lock  # Already removed
