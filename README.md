@@ -8,47 +8,40 @@ Same as encrypt or lock your PDF via a password.
 # How to use ?
 
 ## Clone
-```
-git clone git@github.com:SUPAIDEAS/passifypdf.git
-```
-or 
-```
+```bash
 git clone https://github.com/SUPAIDEAS/passifypdf.git
 ```
 
-## Pull Dependencies (install before usage)
+## Install Dependencies
+Uses [Poetry](https://python-poetry.org/) for dependency management.
 
-```
-pip install -r requirements.txt
+```bash
+cd passifypdf
+pip install poetry
+poetry install
 ```
 
 ## Usage
+Run the CLI tool using `poetry run`:
 
-Run the "main" from IDE or from CLI:
-
-```
-if __name__ == "__main__":
-    ...
+```bash
+poetry run passifypdf --help
 ```
 
-## Usage via CLI:
+Or activate the shell:
+```bash
+poetry shell
+passifypdf --help
+```
 
-```
-python encryptpdf.py
-```
 
 Sample Run:
-```
-change dir to "passifypdf/passifypdf", 
+```bash
+passifypdf -i input.pdf -o protected.pdf -p mySecretPassword
 
-Then run, 
-python encryptpdf.py
-
--------------------------Sample output----------------------
-$python encryptpdf.py
-Congratulations!
-PDF file encrypted successfully and saved as 'Sample_PDF_protected.pdf'
-$
+# -------------------------Sample output----------------------
+# Congratulations!
+# PDF file encrypted successfully and saved as 'protected.pdf'
 ```
 
 ## Known Issues
@@ -58,3 +51,6 @@ But it still does the job, so you can ingore that "char or object error" which y
 ## Note:
 In general you can use passifypdf to protect your PDF files against chance attackers. 
 But you should not rely on this for mission-critical data or situation.
+
+## Build & Run Locally
+Visit [BUILD.md](BUILD.md)

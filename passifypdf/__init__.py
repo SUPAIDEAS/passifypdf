@@ -1,1 +1,1 @@
-"""Unit test package for {{ cookiecutter.project_slug }}."""
+"""passifypdf - Protect PDF files with a password of your choice."""
