@@ -1,0 +1,95 @@
+name: Build Native Binaries
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact_name: passifypdf-linux-x86_64
+            binary_path: dist/passifypdf
+          - os: macos-latest
+            artifact_name: passifypdf-macos-arm64
+            binary_path: dist/passifypdf
+          - os: windows-latest
+            artifact_name: passifypdf-windows-x86_64
+            binary_path: dist/passifypdf.exe
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Install PyInstaller
+        run: uv pip install pyinstaller
+
+      - name: Build binary
+        run: |
+          uv run pyinstaller \
+            --onefile \
+            --name passifypdf \
+            --console \
+            passifypdf/encryptpdf.py
+
+      - name: Smoke test (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          ./dist/passifypdf --help
+
+      - name: Smoke test (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          .\dist\passifypdf.exe --help
+
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: ${{ matrix.binary_path }}
+          if-no-files-found: error
+
+  release:
+    name: Attach Binaries to Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist/
+
+      - name: List downloaded artifacts
+        run: ls -R dist/
+
+      - name: Create release and upload assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/passifypdf-linux-x86_64/passifypdf
+            dist/passifypdf-macos-arm64/passifypdf
+            dist/passifypdf-windows-x86_64/passifypdf.exe
+          generate_release_notes: true

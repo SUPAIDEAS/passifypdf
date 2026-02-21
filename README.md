@@ -45,9 +45,27 @@ passifypdf -i input.pdf -o protected.pdf -p mySecretPassword
 ```
 
 ## Known Issues
-If you have nay special chars(example: an emoji like Star 🌟) in the PDF file, it gives a minor complain during execution. 
-But it still does the job, so you can ingore that "char or object error" which you see in the output.
+If you have any special chars (example: an emoji like Star 🌟) in the PDF file, it gives a minor complaint during execution.
+But it still does the job, so you can ignore that "char or object error" which you see in the output.
+
+## Web UI (Streamlit)
+
+A local web interface is available for users who prefer a graphical workflow:
+
+```bash
+# Install web UI dependencies
+pip install -r requirements-webui.txt
+
+# Launch the app
+streamlit run app/streamlit_app.py
+```
+
+Open the URL shown in your terminal (usually `http://localhost:8501`), upload a PDF, enter a password and download the protected file — no command line needed.
+
+## Download Pre-built Binaries
+
+Standalone executables for Linux, macOS, and Windows are built automatically on every tagged release via GitHub Actions. Visit the [Releases page](https://github.com/SUPAIDEAS/passifypdf/releases) to download the binary for your platform — no Python installation required.
 
 ## Note:
-In general you can use passifypdf to protect your PDF files against chance attackers. 
-But you should not rely on this for mission-critical data or situation.
+In general you can use passifypdf to protect your PDF files against chance attackers.
+But you should not rely on this for mission-critical data or situations.

@@ -1,0 +1,3 @@
+# Requirements for the optional Streamlit web UI (app/streamlit_app.py)
+# Install with: pip install -r requirements-webui.txt
+streamlit>=1.35.0
