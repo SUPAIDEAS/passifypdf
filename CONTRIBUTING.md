@@ -41,6 +41,29 @@ uv run pytest --cov=passifypdf
 ```
 Please make sure all existing tests pass and write new tests for your newly added code before submitting a Pull Request.
 
+## Code Quality
+
+### Pre-commit Hooks
+
+This project uses [`pre-commit`](https://pre-commit.com/) to enforce code quality automatically before each commit. The configuration lives in [`.pre-commit-config.yaml`](.pre-commit-config.yaml) and runs `ruff` (linter + formatter) plus standard file hygiene checks.
+
+To set it up locally:
+
+```bash
+# Install pre-commit (using uv)
+uv run pre-commit install
+
+# Or using pip
+pip install pre-commit
+pre-commit install
+```
+
+Once installed, hooks run automatically on `git commit`. To run them manually across all files:
+
+```bash
+uv run pre-commit run --all-files
+```
+
 ## Code Constraints and Formatting
 
 Currently, the project strives for PEP 8 compliance. While we may add automated pre-commit formatting hooks in the future, please try to:

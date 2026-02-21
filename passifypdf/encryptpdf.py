@@ -1,5 +1,6 @@
 """Core PDF encryption module."""
 
+import logging
 import sys
 from pathlib import Path
 from typing import Union
@@ -7,6 +8,8 @@ from typing import Union
 from pypdf import PdfReader, PdfWriter
 
 from .cli import get_arg_parser
+
+logger = logging.getLogger(__name__)
 
 
 def encrypt_pdf(input_pdf: Union[str, Path], output_pdf: Union[str, Path], password: str) -> None:
@@ -64,14 +67,17 @@ def main() -> int:
         if output_path.exists() and not args.force:
             response = input(f"File '{args.output}' already exists. Overwrite? [y/N]: ")
             if response.lower() not in ('y', 'yes'):
-                print("Operation cancelled.")
+                logger.info("Operation cancelled.")
                 return 0
 
         encrypt_pdf(args.input, args.output, args.passwd)
-        print(f"Congratulations!\nPDF file encrypted successfully and saved as '{args.output}'")
+        logger.info(
+            "Congratulations!\nPDF file encrypted successfully and saved as '%s'",
+            args.output,
+        )
         return 0
     except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
+        logger.error("Error: %s", e)
         return 1
 
 
