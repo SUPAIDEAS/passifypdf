@@ -6,8 +6,6 @@ from typing import Union
 
 from pypdf import PdfReader, PdfWriter
 
-from .cli import get_arg_parser
-
 
 def encrypt_pdf(input_pdf: Union[str, Path], output_pdf: Union[str, Path], password: str) -> None:
     """
@@ -49,24 +47,11 @@ def encrypt_pdf(input_pdf: Union[str, Path], output_pdf: Union[str, Path], passw
         raise Exception(f"Failed to encrypt PDF: {e}")
 
 
-def main() -> int:
-    """
-    Main function to run the CLI.
-
-    Returns:
-        int: Exit code (0 for success, 1 for failure).
-    """
-    arg_parser = get_arg_parser()
-    args = arg_parser.parse_args()
-
-    try:
-        encrypt_pdf(args.input, args.output, args.passwd)
-        print(f"Congratulations!\nPDF file encrypted successfully and saved as '{args.output}'")
-        return 0
-    except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
-        return 1
+def main() -> None:
+    """Entry point: delegates to the Typer CLI application."""
+    from passifypdf.cli import app
+    app()
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()
