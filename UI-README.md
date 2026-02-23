@@ -5,7 +5,7 @@ Commands to run:
 ```shell
 uv sync --all-groups
 uv pip install -r requirements-webui.txt
-uv pip install -e .
+uv pip install -e . <---------- Important, otherwise it gives import error.
 uv run streamlit run app/streamlit_app.py
 ```
 Then,
