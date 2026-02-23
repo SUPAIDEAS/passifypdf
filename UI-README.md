@@ -1,5 +1,5 @@
 Use the following CLI commands to launch the UI.
-- UI allows you to drag-drop PDF files and download them
+- UI allows you to drag-drop PDF file, encrypt it(password protect it) and then, download it.
 
 Commands to run:
 ```shell
